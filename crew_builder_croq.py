@@ -33,13 +33,8 @@ st.title('Autonomous Crew Builder')
 st.write('This app allows you to create an autonomous crew of agents that can work together to achieve a common goal. You need to define upfront the number of agents that you will use. The agents will work in a sequential order. The agents can be assigned different roles, goals, backstories, tasks and expected outputs. The agents will work together to achieve the common goal. The app will display the output of each agent after the crew has completed its work.')
 
 # ask for the API key in password form
-
-with open("config.toml", "rb") as f:
-    config = tomllib.load(f)
-
-api_key = config["environment"]["GROQ_API_KEY"]
-
-os.environ["GROQ_API_KEY"] = api_key
+groq_api_key = st.secrets["GROQ_API_KEY"]
+os.environ["GROQ_API_KEY"] = groq_api_key
 
 from langchain_groq import ChatGroq
 
