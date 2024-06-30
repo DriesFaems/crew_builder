@@ -8,4 +8,4 @@ streamlit
 pysqlite3-binary
 faiss-cpu
 groq
-langchain_croq
+langchain-croq
