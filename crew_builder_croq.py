@@ -19,9 +19,9 @@ from langchain_openai import ChatOpenAI
 from crewai_tools import tool
 from crewai import Crew, Process
 import tomllib
+from langchain_groq import ChatGroq
 
-# Setup the Groq API client
-os.environ["GROQ_API_KEY"] = "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"
+
 client = Groq()
 
 # create title for the streamlit app
@@ -36,7 +36,7 @@ st.write('This app allows you to create an autonomous crew of agents that can wo
 groq_api_key = st.secrets["GROQ_API_KEY"]
 os.environ["GROQ_API_KEY"] = groq_api_key
 
-from langchain_groq import ChatGroq
+
 
 GROQ_LLM = ChatGroq(
             # api_key=os.getenv("GROQ_API_KEY"),
