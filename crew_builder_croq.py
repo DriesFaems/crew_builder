@@ -99,7 +99,6 @@ if st.button('Create Crew'):
     crew = Crew(
         agents=agentlist,
         tasks=tasklist,
-        verbose=2,
         process=Process.sequential,
         full_output=True,
         share_crew=False,
@@ -109,6 +108,6 @@ if st.button('Create Crew'):
     # Print the results
     st.write("Crew Work Results:")
     for i in range(0, number_of_agents):
-        st.write(f"Agent {i+1} output: {tasklist[i].output.raw_output}")
+        st.write(f"Agent {i+1} output: {tasklist[i].output.raw}")
 else:
     st.write('Please click the button to perform an operation')
