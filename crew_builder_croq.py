@@ -22,7 +22,6 @@ import tomllib
 from langchain_groq import ChatGroq
 
 
-client = Groq()
 
 # create title for the streamlit app
 
@@ -33,15 +32,13 @@ st.title('Autonomous Crew Builder')
 st.write('This app allows you to create an autonomous crew of agents that can work together to achieve a common goal. You need to define upfront the number of agents that you will use. The agents will work in a sequential order. The agents can be assigned different roles, goals, backstories, tasks and expected outputs. The agents will work together to achieve the common goal. The app will display the output of each agent after the crew has completed its work.')
 
 # ask for the API key in password form
-groq_api_key = st.secrets["GROQ_API_KEY"]
-os.environ["GROQ_API_KEY"] = groq_api_key
+groq_api_key = st.text_input('Enter your GROQ API key', type='password')
+
+
+human_input = st.text_input('Enter the input, which the agents will work on')
 
 
 
-GROQ_LLM = ChatGroq(
-            # api_key=os.getenv("GROQ_API_KEY"),
-            model="llama3-70b-8192"
-        )
 
 # ask user in streamlit to enter the number of agents that should be part of the crew
 
@@ -75,6 +72,14 @@ for i in range(0,number_of_agents):
 # create click button 
 
 if st.button('Create Crew'):
+    os.environ["GROQ_API_KEY"] = groq_api_key
+    client = Groq()
+
+    GROQ_LLM = ChatGroq(
+            # api_key=os.getenv("GROQ_API_KEY"),
+            model="llama3-70b-8192"
+        )
+
     agentlist = []
     tasklist = []
     for i in range(0, number_of_agents):
@@ -91,7 +96,7 @@ if st.button('Create Crew'):
             )
             agentlist.append(agent)
         task = Task(
-            description=taskdescriptionlist[i],
+            description=taskdescriptionlist[i] + "Consider the input: " + human_input,
             expected_output=outputlist[i],
             agent=agent
         )
@@ -108,6 +113,6 @@ if st.button('Create Crew'):
     # Print the results
     st.write("Crew Work Results:")
     for i in range(0, number_of_agents):
-        st.write(f"Agent {i+1} output: {tasklist[i].output.raw}")
+        st.write(f"Agent {i+1} output: {tasklist[i].output.exported_output}")
 else:
     st.write('Please click the button to perform an operation')
