@@ -76,7 +76,6 @@ if st.button('Create Crew'):
     client = Groq()
 
     GROQ_LLM = ChatGroq(
-            # api_key=os.getenv("GROQ_API_KEY"),
             model="llama3-70b-8192"
         )
 
