@@ -35,10 +35,7 @@ st.write('This app allows you to create an autonomous crew of agents that can wo
 groq_api_key = st.text_input('Enter your GROQ API key', type='password')
 
 
-human_input = st.text_input('Enter the input, which the agents will work on')
-
-
-
+human_input = st.text_area('If you want, you can enter here information that the the agents can use when executing their task')
 
 # ask user in streamlit to enter the number of agents that should be part of the crew
 
@@ -57,15 +54,15 @@ for i in range(0,number_of_agents):
     question = 'Enter the name of agent ' + str(i+1)
     agent_name = st.text_input(question)
     namelist.append(agent_name)
-    role = st.text_input(f"""Enter the role of agent {agent_name}""")
+    role = st.text_input(f"""Enter the role of agent {agent_name}""" + str(i+1))
     rolelist.append(role)
-    goal = st.text_input(f"""Enter the goal of agent {agent_name}""")
+    goal = st.text_input(f"""Enter the goal of agent {agent_name}""" + str(i+1))
     goallist.append(goal)
-    backstory = st.text_input(f"""Describe the backstory of agent {agent_name}""")
+    backstory = st.text_input(f"""Describe the backstory of agent {agent_name}""" + str(i+1))
     backstorylist.append(backstory)
-    taskdescription = st.text_input(f"""Describe the task of agent {agent_name}""")
+    taskdescription = st.text_input(f"""Describe the task of agent {agent_name}""" + str(i+1))
     taskdescriptionlist.append(taskdescription)
-    output = st.text_input(f"""Describe the expected output of agent {agent_name}""")
+    output = st.text_input(f"""Describe the expected output of agent {agent_name}""" +  str(i+1))
     outputlist.append(output)
     
 
@@ -76,7 +73,7 @@ if st.button('Create Crew'):
     client = Groq()
 
     GROQ_LLM = ChatGroq(
-            model="llama3-70b-8192"
+            model="llama3-8b-instant"
         )
 
     agentlist = []
