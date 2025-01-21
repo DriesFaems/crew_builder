@@ -73,7 +73,7 @@ if st.button('Create Crew'):
     client = Groq()
 
     GROQ_LLM = ChatGroq(
-            model="llama3-8b-instant"
+            model="llama-3.1-8b-instant"
         )
 
     agentlist = []
